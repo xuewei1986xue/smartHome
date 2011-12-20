@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, EHomeActivity!</string>
+    <string name="app_name">EHome</string>
+    
+    <string name="language_title">tltle</string>
+	<string name="language_discription">discription</string>
+	<string name="language_sel">选择语言</string>
+
+</resources>
