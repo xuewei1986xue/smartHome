@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hotel E-Home</string>
+    
+    <string name="language_title">title</string>
+	<string name="language_discription">discription</string>
+	<string name="language_sel">Select language</string>
+	<string name="chg_lang">Change language</string>
+	<string name="fuction1">TV</string>
+	<string name="fuction2">Video/Audio</string>
+	<string name="fuction3">Hotel</string>
+	<string name="fuction4">Play</string>
+	<string name="fuction5">Information</string>
+	<string name="fuction6">Food</string>	
+	<string name="home">Return Home</string>
+
+</resources>

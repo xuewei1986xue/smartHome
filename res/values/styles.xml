@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<style name="Theme" parent="android:Theme.Wallpaper">
+		<item name="android:windowNoTitle">true</item>
+	</style>
+
+	<style name="ThemenoTitle">
+		<item name="android:windowNoTitle">true</item>
+	</style>
+	<style name="Theme.CustomNoTitleFullScreenThememainbg" parent="@android:style/Theme">
+
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowFullscreen">true</item>
+	</style>
+
+	<style name="Theme.CustomNoTitleFullScreenThemefunbg" parent="@android:style/Theme">
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowFullscreen">true</item>
+	</style>
+
+	<style name="Theme.CustomNoTitleFullScreenNoback" parent="@android:style/Theme">
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowFullscreen">true</item>
+	</style>
+	
+	<style name="Theme.ManageWindow" parent="@android:style/Theme">
+		<item name="android:windowFullscreen">true</item>
+	</style>
+
+</resources>
