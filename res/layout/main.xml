@@ -10,12 +10,19 @@
 		android:layout_weight="1">
 		
 		<Button android:id="@+id/logo" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:text="logo" 
+		android:layout_height="wrap_content" android:text="" 
 		android:layout_centerInParent="true" android:background="@drawable/elogo"/>
-		<Button android:layout_height="wrap_content" android:id="@+id/chglang" 
-		android:layout_width="wrap_content" android:layout_toRightOf="@+id/logo" 
-		android:layout_alignBottom="@+id/logo" android:background="@drawable/bt_bg" 
-		android:text="@string/chg_lang">
+
+		<Button
+		    android:id="@+id/chglang"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBottom="@+id/logo"
+		    android:layout_toRightOf="@+id/logo"
+		    android:background="@drawable/menu_bg"
+		    android:textColor="@android:color/white"
+		    android:text="@string/chg_lang" >
+			android:padding="5dp"
 		</Button>
 	</RelativeLayout>
 
@@ -24,18 +31,49 @@
     <Button android:text="Button" android:id="@+id/button8" android:layout_width="wrap_content" 
     android:layout_height="wrap_content" android:layout_weight="1" android:visibility="invisible"></Button>
     
-	<Button android:layout_width="wrap_content" android:id="@+id/button1"
-		android:layout_height="wrap_content" android:text="@string/fuction1"></Button>
+	<Button
+	    android:id="@+id/button1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/menu_bg"
+	    android:textColor="@android:color/white"
+	    android:text="@string/fuction1"
+	    android:padding="10dp"
+	    android:layout_marginRight="10dp"></Button>
 	<Button android:layout_width="wrap_content" android:id="@+id/button2"
-		android:layout_height="wrap_content" android:text="@string/fuction2"></Button>
+		android:layout_height="wrap_content" android:text="@string/fuction2"
+		android:background="@drawable/menu_bg"
+	    android:textColor="@android:color/white"
+	    android:padding="10dp"
+	    android:layout_marginRight="10dp"
+	    ></Button>
 	<Button android:layout_width="wrap_content" android:id="@+id/button3"
-		android:layout_height="wrap_content" android:text="@string/fuction3"></Button>
+		android:layout_height="wrap_content" android:text="@string/fuction3"
+		android:background="@drawable/menu_bg"
+	    android:textColor="@android:color/white"
+	    android:padding="10dp"
+	    android:layout_marginRight="10dp"></Button>
+	
 	<Button android:layout_width="wrap_content" android:id="@+id/button4"
-		android:layout_height="wrap_content" android:text="@string/fuction4"></Button>
+		android:layout_height="wrap_content" android:text="@string/fuction4"
+		android:background="@drawable/menu_bg"
+	    android:textColor="@android:color/white"
+	    android:padding="10dp"
+	    android:layout_marginRight="10dp"></Button>
+	
 	<Button android:layout_width="wrap_content" android:id="@+id/button5"
-		android:layout_height="wrap_content" android:text="@string/fuction5"></Button>
+		android:layout_height="wrap_content" android:text="@string/fuction5"
+		android:background="@drawable/menu_bg"
+	    android:textColor="@android:color/white"
+	    android:padding="10dp"
+	    android:layout_marginRight="10dp"></Button>
+	
 	<Button android:layout_width="wrap_content" android:id="@+id/button6"
-		android:layout_height="wrap_content" android:text="@string/fuction6"></Button>
+		android:layout_height="wrap_content" android:text="@string/fuction6"
+		android:background="@drawable/menu_bg"
+	    android:textColor="@android:color/white"
+	    android:padding="10dp"
+	    android:layout_marginRight="10dp"></Button>
 	
 	<Button android:text="Button" android:id="@+id/button9" 
 	android:layout_width="wrap_content" android:layout_height="wrap_content"

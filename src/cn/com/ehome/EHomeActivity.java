@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,6 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	private Button mbtn4;
 	private Button mbtn5;
 	private Button mbtn6;
-	private Button mbtn7;
 	private Button mbtnlogo;
 	private Button mbtnChgLang;
 	
@@ -74,8 +74,8 @@ public class EHomeActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		
-		if(v.getId() == R.id.logo){
+		int id = v.getId();
+		if(id == R.id.logo){
 			PackageManager packageManager = this.getPackageManager();				
 			Intent intent = new Intent();
 			intent.setClassName("com.android.launcher", "com.android.launcher2.Launcher");
@@ -84,8 +84,12 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			}else{
 				Toast.makeText(this,"You can't use it this time.",Toast.LENGTH_LONG).show();
 			}
-		}else if(v.getId() == R.id.chglang){
+		}else if(id == R.id.chglang){
 			showDialog(DIALOG_POPLANGUAGESEL);
+		}else if(id == R.id.button1){
+			Intent intent = new Intent();
+			intent.setClass(this, InfoActivity.class);
+			startActivity(intent);
 		}
 		
 	}
@@ -195,6 +199,11 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			map.put("ItemTitle", mLocales[i].label);
 			listItem.add(map);
 		}
+		SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,
+				R.layout.languagesellistitem,				
+				new String[] { "ItemTitle" },
+				new int[] { R.id.title });		
+		list.setAdapter(listItemAdapter);
 
 	}
 
@@ -219,9 +228,16 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	}
 
 	private void changeLanguage(Loc mLoc) {
-		try {
+		
 			IActivityManager am = ActivityManagerNative.getDefault();
-			Configuration config = am.getConfiguration();
+			Configuration config;
+			try {
+				config = am.getConfiguration();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return;
+			}
 
 			Loc loc = mLoc;
 			config.locale = loc.locale;
@@ -230,12 +246,15 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			// remembered
 			config.userSetLocale = true;
 
-			am.updateConfiguration(config);
+			try {
+				am.updateConfiguration(config);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// Trigger the dirty bit for the Settings Provider.
 			BackupManager.dataChanged("com.android.providers.settings");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		
 
 	}
 
