@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">智能E房</string>
+    
+    <string name="language_title">标题</string>
+	<string name="language_discription">描述</string>
+	<string name="language_sel">选择语言</string>
+	<string name="chg_lang">改变语言</string>
+	<string name="fuction1">电视</string>
+	<string name="fuction2">影音视听</string>
+	<string name="fuction3">酒店介绍</string>
+	<string name="fuction4">休闲娱乐</string>
+	<string name="fuction5">周边信息</string>
+	<string name="fuction6">餐饮</string>
+</resources>

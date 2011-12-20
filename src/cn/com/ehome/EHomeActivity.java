@@ -37,6 +37,7 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	private Button mbtn6;
 	private Button mbtn7;
 	private Button mbtnlogo;
+	private Button mbtnChgLang;
 	
 	public final static int DIALOG_POPLANGUAGESEL = 5;
 	private Loc[] mLocales;
@@ -54,6 +55,9 @@ public class EHomeActivity extends Activity implements OnClickListener {
         mbtnlogo = (Button)findViewById(R.id.logo);
         mbtnlogo.setOnClickListener(this);
         
+        mbtnChgLang = (Button)findViewById(R.id.chglang);
+        mbtnChgLang.setOnClickListener(this);
+        
         mbtn1 =  (Button)findViewById(R.id.button1);
         mbtn1.setOnClickListener(this);
         mbtn2 =  (Button)findViewById(R.id.button2);
@@ -66,8 +70,6 @@ public class EHomeActivity extends Activity implements OnClickListener {
         mbtn5.setOnClickListener(this);
         mbtn6 =  (Button)findViewById(R.id.button6);
         mbtn6.setOnClickListener(this);
-        mbtn7 =  (Button)findViewById(R.id.button7);
-        mbtn7.setOnClickListener(this);
     }
 
 	@Override
@@ -194,16 +196,6 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			listItem.add(map);
 		}
 
-		// �����������Item�Ͷ�̬�����Ӧ��Ԫ��
-		SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,// ���Դ
-				R.layout.languagesellistitem,// ListItem��XMLʵ��
-				// ��̬������ImageItem��Ӧ������
-				new String[] { "ItemTitle" },
-				// ImageItem��XML�ļ������һ��ImageView,����TextView ID
-				new int[] { R.id.title });
-
-		// ��Ӳ�����ʾ
-		list.setAdapter(listItemAdapter);
 	}
 
 	private static String toTitleCase(String s) {
