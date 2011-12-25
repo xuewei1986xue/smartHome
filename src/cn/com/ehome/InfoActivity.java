@@ -109,8 +109,9 @@ public class InfoActivity extends Activity implements OnClickListener {
 		 if(id == R.id.back){
 			 Intent intent = new Intent();
 			 intent.setClass(this, EHomeActivity.class);
-			 //startActivity(intent);
-			 finish();
+			 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			 startActivity(intent);
+			 //finish();
 		 }
 	 }
 	 

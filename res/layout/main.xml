@@ -11,7 +11,8 @@
 		
 		<Button android:id="@+id/logo" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:text="" 
-		android:layout_centerInParent="true" android:background="@drawable/elogo"/>
+		android:layout_centerInParent="true" android:background="@drawable/elogo"
+		android:focusable="false"/>
 
 		<Button
 		    android:id="@+id/chglang"
@@ -21,8 +22,9 @@
 		    android:layout_toRightOf="@+id/logo"
 		    android:background="@drawable/menu_bg"
 		    android:textColor="@android:color/white"
-		    android:text="@string/chg_lang" >
-			android:padding="5dp"
+		    android:text="@string/chg_lang" 
+		    android:padding="5dp">
+			
 		</Button>
 	</RelativeLayout>
 
@@ -38,7 +40,7 @@
 	    android:background="@drawable/menu_bg"
 	    android:textColor="@android:color/white"
 	    android:text="@string/fuction1"
-	    android:padding="10dp"
+	    android:padding="20dp"
 	    android:layout_marginRight="10dp"></Button>
 	<Button android:layout_width="wrap_content" android:id="@+id/button2"
 		android:layout_height="wrap_content" android:text="@string/fuction2"

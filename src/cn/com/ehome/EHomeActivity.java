@@ -93,6 +93,18 @@ public class EHomeActivity extends Activity implements OnClickListener {
 		}else if(id == R.id.button2){
 			Intent intent = new Intent();
 			intent.setClass(this, AppCati.class);
+			intent.putExtra(AppCati.VIEW_MODE, AppCati.MODE_APP);
+			startActivity(intent);
+		}
+		else if(id == R.id.button3){
+			Intent intent = new Intent();
+			intent.setClass(this, InfoActivity.class);
+			startActivity(intent);
+		}
+		else if(id == R.id.button4){
+			Intent intent = new Intent();
+			intent.setClass(this, AppCati.class);
+			intent.putExtra(AppCati.VIEW_MODE, AppCati.MODE_WEBSITE_VIDEO);
 			startActivity(intent);
 		}
 		

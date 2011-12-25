@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="wrap_content"
+	android:orientation="vertical" android:layout_width="150dp"
 	android:layout_height="wrap_content"
 	android:padding="5dp"
 	android:gravity="center_horizontal"
@@ -10,18 +10,18 @@
 	<ImageView android:id="@+id/gridicon" 
 		android:layout_width="60dp"
 		android:layout_height="60dp"
-	android:gravity="center"
-	android:src="@drawable/bt_bg">
+	android:gravity="center">
 
 	</ImageView>
 
 	<TextView android:id="@+id/gridname"
 		android:layout_width="wrap_content"
 		android:layout_height="30dp"		
-		android:textSize="15dp"
+		android:textSize="15sp"
 		android:maxLines="2"
 		android:gravity="center"
-		android:text="defee">
+		android:text="Loading"
+		android:textColor="#ff555555">
 
 	</TextView>
 </LinearLayout>

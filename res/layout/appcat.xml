@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/file_manager_path_bg" >
+    android:background="@drawable/blue_glow" >
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/container_head_bg"
+        android:background="#2207DB93"
         android:orientation="vertical" >
 
         <TextView
@@ -17,13 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="程序"
-            android:textSize="20sp" />
+            android:text="实例你安装的APK"
+            android:textSize="20sp"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal" >
 
@@ -31,26 +32,33 @@
             android:id="@+id/gridview"
             android:layout_width="600dp"
             android:layout_height="fill_parent"
-            android:background="@color/file_manager_path_bg"
             android:gravity="center"
             android:horizontalSpacing="1dip"
             android:numColumns="4"
             android:stretchMode="columnWidth"
             android:verticalSpacing="1dip"
-            android:listSelector="@drawable/grid_selector_bg" />
+            android:listSelector="@drawable/grid_selector_bg"
+            android:background="#33FFFFFF" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/file_manager_path_bg"
-            android:orientation="horizontal" >
+            android:layout_weight="1"
+            android:background="#22FFFFFF"
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="说明" />
+                android:text="说明"
+                android:textSize="18sp"
+                android:textColor="#ff555555"
+                android:layout_margin="5dp" />
+
+            
+
         </LinearLayout>
     </LinearLayout>
 
