@@ -71,6 +71,7 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 	        switch(mMode){
 	        	case MODE_APP:
 	        		loadApplications(MODE_APP);
+	        		break;
 	        	case MODE_APP_GAME:
 	        		loadApplications(MODE_APP_GAME);
 	        	break;
