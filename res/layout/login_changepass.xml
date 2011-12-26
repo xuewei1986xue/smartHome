@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:padding="5dp">
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:textSize="20px"
+		android:text="@string/input" />
+	<EditText android:id="@+id/inputpassword"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:password="true" android:layout_marginTop="5px" 
+		android:singleLine="true"
+		android:imeOptions="actionDone"		
+		/>
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:paddingTop="5px">
+		<View android:id="@+id/view1" android:layout_width="wrap_content"
+			android:layout_weight="1" android:layout_height="1dp"></View>
+		<CheckBox android:text="@string/show_psw" android:id="@+id/show_psw"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			></CheckBox>
+		<View android:id="@+id/view1" android:layout_width="wrap_content"
+			android:layout_weight="1" android:layout_height="1dp"></View>
+		<Button android:id="@+id/login" android:layout_width="340px"
+			android:layout_height="wrap_content" android:text="@string/login"
+			android:textSize="20px" />
+		<View android:id="@+id/view1" android:layout_width="wrap_content"
+			android:layout_weight="1" android:layout_height="1dp"></View>
+	</LinearLayout>
+</LinearLayout>

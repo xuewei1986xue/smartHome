@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<dimen name="expand_text_left">36dp</dimen>
+	<dimen name="lang_padding">8dp</dimen>
+	<dimen name="menu_padding">0dp</dimen>
+	<dimen name="menu_width">100dp</dimen>
+	<dimen name="menu_height">50dp</dimen>
+	<dimen name="logo_width">250dp</dimen>
+    
+</resources>

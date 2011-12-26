@@ -1,5 +1,6 @@
 package cn.com.ehome;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,34 +11,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
+import android.widget.CursorAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.ehome.app.IconifiedText;
 import cn.com.ehome.app.IconifiedTextListAdapter;
-import cn.com.ehome.utill.WebsiteList;
+import cn.com.ehome.database.EHotelProvider;
+import cn.com.ehome.until.GobalFinalData;
+import cn.com.ehome.until.WebsiteList;
 
 public class AppCati extends Activity implements OnItemClickListener, OnItemSelectedListener {
 
 	private GridView gridview;
 	private TextView mTextView;
+	private WebView mWebview;
 	private TextView mDescription;
 	private int mMode = 1;
 	private List<Website> mWebsitelist = null;
 	
 	public static final String VIEW_MODE = "mode";
 	public static final int MODE_APP = 1;
-	public static final int MODE_WEBSITE_VIDEO = 2;
+	public static final int MODE_APP_GAME = 2;
+	public static final int MODE_WEBSITE_VIDEO = 3;
 	
 	private ArrayList<ApplicationInfo> mApplications;
 	
@@ -53,12 +62,17 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 	        
 	        gridview.setOnItemSelectedListener(this);
 	        
+	        mWebview = (WebView)findViewById(R.id.webView1);
+	        mWebview.loadUrl("file:///mnt/sdcard/google.png");
+	        
 	       
 	        Intent intent = getIntent();
 	        mMode = intent.getIntExtra(VIEW_MODE, MODE_WEBSITE_VIDEO);
 	        switch(mMode){
 	        	case MODE_APP:
-	        		loadApplications();
+	        		loadApplications(MODE_APP);
+	        	case MODE_APP_GAME:
+	        		loadApplications(MODE_APP_GAME);
 	        	break;
 	        	case MODE_WEBSITE_VIDEO:
 	        		WebsiteList websiteList = new WebsiteList(this, "website_video.xml");
@@ -68,7 +82,6 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 	        	break;
 	        }
 	        
-	        
 	 }
 
 	@Override
@@ -77,18 +90,23 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 		 
 		switch(mMode){
 	     	case MODE_APP:
-	     		if(mApplications !=null){	    			
+	     	case MODE_APP_GAME:
+	     		Intent intent = EHotelProvider.getIntentById(id);
+	     		if(intent!=null){
+	     			AppCati.this.startActivity(intent);
+	     		}
+	     		break;	     	
+	     		/*if(mApplications !=null){	    			
 	    			if(position >=0 && position < mApplications.size()){
 	    				AppCati.this.startActivity(mApplications.get(position).intent);	    				
 	    			}
-	    		}	
-	     	break;
+	    		}*/	
 	     	case MODE_WEBSITE_VIDEO:
 	     		if(mWebsitelist != null){
-	     			Intent intent = new Intent();
-		     		intent.setAction(Intent.ACTION_VIEW);
-		     		intent.setData(Uri.parse(mWebsitelist.get(position).url));
-		     		this.startActivity(intent);
+	     			Intent intent2 = new Intent();
+		     		intent2.setAction(Intent.ACTION_VIEW);
+		     		intent2.setData(Uri.parse(mWebsitelist.get(position).url));
+		     		this.startActivity(intent2);
 	     		}	     		
 	     	break;
 		}
@@ -106,7 +124,13 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
     		}		
      	break;
      	case MODE_WEBSITE_VIDEO:
-     	
+     		if(mWebsitelist != null){
+     			if(position%2 == 0){
+     				mWebview.loadUrl("file:///mnt/sdcard/HTML/test2.html");
+     			}else{
+     				mWebview.loadUrl("file:///mnt/sdcard/HTML/test.html");
+     			}
+     		}	
      	break;
 	}
 				
@@ -118,9 +142,19 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 		
 	}
 
-	private void loadApplications() {
+	private void loadApplications(int type) {
+		CursorAdapter adapter = null;
+		if(type == MODE_APP){
+			adapter = new SortAppAdapter(this,EHotelProvider.QuerySort(GobalFinalData.APP_SORT_COMMERCE,
+					GobalFinalData.APP_SORT_COMMERCE_1),true);
+		}else if(type == MODE_APP_GAME){
+			adapter = new SortAppAdapter(this,EHotelProvider.QuerySort(GobalFinalData.APP_SORT_GAME,
+					GobalFinalData.APP_SORT_GAME_1),true);
+			
+		}
+		gridview.setAdapter(adapter);
 
-		PackageManager manager = getPackageManager();
+		/*PackageManager manager = getPackageManager();
 	
 		Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
 		mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -167,7 +201,7 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 		
 		itla.setListItems(directoryEntries);
 		
-		gridview.setAdapter(new AllAppAdapter(this));	
+		gridview.setAdapter(new AllAppAdapter(this));	*/
 	}
 	
 	public class AllAppAdapter extends BaseAdapter {
@@ -287,6 +321,58 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 			return convertView;
 		}
 		
+	}
+	
+	public class SortAppAdapter extends CursorAdapter {
+
+		public SortAppAdapter(Context context, Cursor c, boolean autoRequery) {
+			super(context, c, autoRequery);
+		}
+
+		@Override
+		public void bindView(View view, Context context, Cursor cursor) {
+			
+			ImageView appIcon = (ImageView) view.findViewById(R.id.gridicon);
+			final TextView textView = (TextView) view.findViewById(R.id.gridname);		
+			
+			Intent intent = null;
+			String packageName = null;
+			String intentString;
+
+			intentString = cursor.getString(cursor
+					.getColumnIndex(EHotelProvider.APP_INTENT));
+			try {
+				intent = Intent.parseUri(intentString, 0);
+				packageName = intent.getComponent().getPackageName();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+			PackageManager manager = mContext.getPackageManager();
+			Drawable drawable = null;
+			try {
+				drawable = manager.getApplicationIcon(packageName);
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
+			if (drawable == null) {
+				appIcon.setBackgroundResource(R.drawable.bt_bg);
+			} else {
+				appIcon.setBackgroundDrawable(drawable);
+			}
+		
+			textView.setText(cursor.getString(cursor
+					.getColumnIndex(EHotelProvider.APP_TITLE)));			
+			
+		}
+
+		@Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			final LayoutInflater inflater = LayoutInflater.from(mContext);
+			View convertView = inflater.inflate(R.layout.gridfileitem, parent,
+					false);
+			
+			return convertView;
+		}
 	}
 }
 

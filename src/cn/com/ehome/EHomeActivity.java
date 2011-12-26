@@ -1,5 +1,6 @@
 package cn.com.ehome;
 
+import java.io.IOException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,21 +13,34 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.IActivityManager;
 import android.app.backup.BackupManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+import cn.com.ehome.database.EHotelProvider;
+import cn.com.ehome.systemmanage.ManageActivity;
 
 public class EHomeActivity extends Activity implements OnClickListener {
    	
@@ -40,12 +54,16 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	private Button mbtnChgLang;
 	
 	public final static int DIALOG_POPLANGUAGESEL = 5;
+	public final static int DIALOG_LOGIN = 6;
 	private Loc[] mLocales;
 	private String[] mSpecialLocaleCodes;
 	private String[] mSpecialLocaleNames;
 	
+	EditText etPassword;
 	
 	private static String TAG = "home";
+	private static boolean mWallpaperChecked = false;
+	private final BroadcastReceiver mWallpaperReceiver = new WallpaperIntentReceiver();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,20 +88,34 @@ public class EHomeActivity extends Activity implements OnClickListener {
         mbtn5.setOnClickListener(this);
         mbtn6 =  (Button)findViewById(R.id.button6);
         mbtn6.setOnClickListener(this);
+        
+        IntentFilter filter = new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED);
+        registerReceiver(mWallpaperReceiver, filter);
+        
+        setDefaultWallpaper();
     }
+
+    
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(mWallpaperReceiver);
+	}
+
 
 	@Override
 	public void onClick(View v) {
 		int id = v.getId();
 		if(id == R.id.logo){
-			PackageManager packageManager = this.getPackageManager();				
+			/*PackageManager packageManager = this.getPackageManager();				
 			Intent intent = new Intent();
 			intent.setClassName("com.android.launcher", "com.android.launcher2.Launcher");
 			if (intent != null) {
 				startActivity(intent);
 			}else{
 				Toast.makeText(this,"You can't use it this time.",Toast.LENGTH_LONG).show();
-			}
+			}*/
+			showDialog(DIALOG_LOGIN);
 		}else if(id == R.id.chglang){
 			showDialog(DIALOG_POPLANGUAGESEL);
 		}else if(id == R.id.button1){
@@ -92,8 +124,7 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 		}else if(id == R.id.button2){
 			Intent intent = new Intent();
-			intent.setClass(this, AppCati.class);
-			intent.putExtra(AppCati.VIEW_MODE, AppCati.MODE_APP);
+			intent.setClass(this, InfoActivity.class);
 			startActivity(intent);
 		}
 		else if(id == R.id.button3){
@@ -102,9 +133,22 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			startActivity(intent);
 		}
 		else if(id == R.id.button4){
+
 			Intent intent = new Intent();
 			intent.setClass(this, AppCati.class);
 			intent.putExtra(AppCati.VIEW_MODE, AppCati.MODE_WEBSITE_VIDEO);
+			startActivity(intent);
+		}
+		else if(id == R.id.button5){
+			Intent intent = new Intent();
+			intent.setClass(this, AppCati.class);
+			intent.putExtra(AppCati.VIEW_MODE, AppCati.MODE_APP);
+			startActivity(intent);
+		}
+		else if(id == R.id.button6){
+			Intent intent = new Intent();
+			intent.setClass(this, AppCati.class);
+			intent.putExtra(AppCati.VIEW_MODE, AppCati.MODE_APP_GAME);
 			startActivity(intent);
 		}
 		
@@ -139,10 +183,75 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			dialog = mBuilderpass.create();
 			break;
 		}
+		case DIALOG_LOGIN: {
+			LayoutInflater inflater = LayoutInflater.from(this);
+			View password = inflater.inflate(R.layout.login_changepass, null);
+			AlertDialog.Builder mBuilderpass = new AlertDialog.Builder(this);
+			mBuilderpass.setTitle(R.string.login_title).setView(password);
+			final Button login = (Button) password.findViewById(R.id.login);
+			etPassword = (EditText) password.findViewById(R.id.inputpassword);
+			etPassword.setText("");
+			etPassword.setOnEditorActionListener(new OnEditorActionListener() {
+
+				@Override
+				public boolean onEditorAction(TextView v, int actionId,
+						KeyEvent event) {
+					login.performClick();
+					return true;
+				}
+			});
+
+			login.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+
+					if (passwordIsRight()) {
+						etPassword.setText("");
+						Intent mIntent = new Intent(getApplicationContext(),
+								ManageActivity.class);
+						startActivity(mIntent);
+						dismissDialog(DIALOG_LOGIN);
+					} else {
+						Toast.makeText(getApplicationContext(),
+								R.string.passworderror, Toast.LENGTH_SHORT)
+								.show();
+					}
+				}
+			});
+
+			password.findViewById(R.id.show_psw).setOnClickListener(
+					new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							CheckBox showPsw = (CheckBox) v;
+							if (showPsw.isChecked() == false) {
+								etPassword
+										.setTransformationMethod(new PasswordTransformationMethod());
+							} else {
+								etPassword.setTransformationMethod(null);
+							}
+
+						}
+					});
+
+			dialog = mBuilderpass.create();
+		}
 		}
 		return dialog;
 	}
 	
+	private boolean passwordIsRight() {
+
+		String commonPassword = EHotelProvider.getCurPassword();
+		String password = etPassword.getText().toString();
+		if (password.equals(commonPassword)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	private void getLanguageInfo(ListView list) {
 		mSpecialLocaleCodes = getResources().getStringArray(
@@ -294,4 +403,74 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			return sCollator.compare(this.label, ((Loc) o).label);
 		}
 	}
+	
+	/**
+     * When a drawable is attached to a View, the View gives the Drawable its dimensions
+     * by calling Drawable.setBounds(). In this application, the View that draws the
+     * wallpaper has the same size as the screen. However, the wallpaper might be larger
+     * that the screen which means it will be automatically stretched. Because stretching
+     * a bitmap while drawing it is very expensive, we use a ClippedDrawable instead.
+     * This drawable simply draws another wallpaper but makes sure it is not stretched
+     * by always giving it its intrinsic dimensions. If the wallpaper is larger than the
+     * screen, it will simply get clipped but it won't impact performance.
+     */
+    private class ClippedDrawable extends Drawable {
+        private final Drawable mWallpaper;
+
+        public ClippedDrawable(Drawable wallpaper) {
+            mWallpaper = wallpaper;
+        }
+
+        @Override
+        public void setBounds(int left, int top, int right, int bottom) {
+            super.setBounds(left, top, right, bottom);
+            // Ensure the wallpaper is as large as it really is, to avoid stretching it
+            // at drawing time
+            mWallpaper.setBounds(left, top, left + mWallpaper.getIntrinsicWidth(),
+                    top + mWallpaper.getIntrinsicHeight());
+        }
+
+        public void draw(Canvas canvas) {
+            mWallpaper.draw(canvas);
+        }
+
+        public void setAlpha(int alpha) {
+            mWallpaper.setAlpha(alpha);
+        }
+
+        public void setColorFilter(ColorFilter cf) {
+            mWallpaper.setColorFilter(cf);
+        }
+
+        public int getOpacity() {
+            return mWallpaper.getOpacity();
+        }
+    }
+    
+    private void setDefaultWallpaper() {
+        if (!mWallpaperChecked) {
+            Drawable wallpaper = peekWallpaper();
+            if (wallpaper == null) {
+                try {
+                    clearWallpaper();
+                } catch (IOException e) {
+                    Log.e(TAG, "Failed to clear wallpaper " + e);
+                }
+                //getWindow().setBackgroundDrawableResource(R.drawable.bg_home);
+            } else {
+                //getWindow().setBackgroundDrawable(new ClippedDrawable(wallpaper));
+            }
+            //mWallpaperChecked = true;
+        }
+    }
+    
+    /**
+     * Receives intents from other applications to change the wallpaper.
+     */
+    private class WallpaperIntentReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //getWindow().setBackgroundDrawable(new ClippedDrawable(getWallpaper()));
+        }
+    }    
 }

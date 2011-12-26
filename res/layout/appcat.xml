@@ -57,7 +57,13 @@
                 android:textColor="#ff555555"
                 android:layout_margin="5dp" />
 
-            
+            <WebView
+                android:id="@+id/webView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:scrollbars="none"
+                />
 
         </LinearLayout>
     </LinearLayout>

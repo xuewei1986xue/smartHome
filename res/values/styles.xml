@@ -8,7 +8,7 @@
 	<style name="ThemenoTitle">
 		<item name="android:windowNoTitle">true</item>
 	</style>
-	<style name="Theme.CustomNoTitleFullScreenThememainbg" parent="@android:style/Theme">
+	<style name="Theme.CustomNoTitleFullScreenThememainbg" parent="@android:style/Theme.Wallpaper.NoTitleBar">
 
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:windowFullscreen">true</item>
