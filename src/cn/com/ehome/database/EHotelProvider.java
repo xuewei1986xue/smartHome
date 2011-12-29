@@ -1,6 +1,17 @@
 package cn.com.ehome.database;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.util.Iterator;
+import java.util.List;
+
+import org.xmlpull.v1.XmlSerializer;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -14,14 +25,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
+import android.util.Xml;
+import cn.com.ehome.AppObject;
 import cn.com.ehome.ApplicationInfo;
+import cn.com.ehome.until.AppXmlList;
 import cn.com.ehome.until.GobalFinalData;
 
 public class EHotelProvider extends ContentProvider {
 	public static SQLiteDatabase sqlDB;
 	public static DatabaseHelper dbHelper;
 	private static final String DATABASE_NAME = "database.db";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 6;
 	public static final String TABLE_NAME = "sortinfo";
 	public static final String TABLE_PASSWORD = "passinfo";
 	public static final Uri CONTENT_URI  = Uri.parse("content://cn.com.ehome.database.EHotelProvider");
@@ -35,6 +49,7 @@ public class EHotelProvider extends ContentProvider {
 	public static final String APP_PACKAGE_NAME = "_app_package_name";
 	public static final String APP_SORT = "_app_sort";
 	public static final String APP_SORT_CHILD = "_app_sort_child";
+	public static final String APP_DESCRIPTION = "_description";
 	
 	public static final String CURISADMIN="_isadmin";
 	public static final String USER_NAME = "_username";
@@ -57,6 +72,7 @@ public class EHotelProvider extends ContentProvider {
 					+ APP_INTENT + " TEXT,"					
 					+ "_app_sort Integer,"
 					+ "_app_sort_child Integer,"
+					+ APP_DESCRIPTION + " TEXT,"	
 					+ APP_PACKAGE_NAME + " TEXT"+ ");");
 			
 			db.execSQL("CREATE TABLE  IF NOT EXISTS " + TABLE_PASSWORD + "( "
@@ -265,5 +281,99 @@ public class EHotelProvider extends ContentProvider {
 		ContentValues values = new ContentValues();
 		values.put(ROOMNUM, roomNum);
 		db.update(TABLE_PASSWORD, values, null, null);
+	}
+	
+	public static boolean savaAsConfig(String path){
+		XmlSerializer serializer = Xml.newSerializer();  
+		StringWriter writer = new StringWriter();  
+		boolean breturn = true;
+		try {
+			serializer.setOutput(writer);
+			// <?xml version=”1.0″ encoding=”UTF-8″ standalone=”yes”?>  
+			serializer.startDocument("UTF-8",true);
+			// <blog number=”1″>  
+			serializer.startTag("","root");  
+			
+			SQLiteDatabase db = dbHelper.getReadableDatabase();
+			Cursor c = db.query(TABLE_NAME, new String[]{APP_TITLE,APP_PACKAGE_NAME}, null, null, null, null, null);
+			
+			if(c != null){
+				c.moveToFirst();
+				while(c.isAfterLast() == false){
+					serializer.startTag("", AppXmlList.ITEM);
+					serializer.attribute("", AppXmlList.NAME, c.getString(0));
+					serializer.attribute("", AppXmlList.ID, c.getString(1));
+					serializer.attribute("", AppXmlList.DISCRIPTION,"请指定文件到这里"); 
+					serializer.endTag("", "item");
+					c.moveToNext();
+				}
+			}
+			c.close();
+			db.close();
+			
+			serializer.endTag("","root");  
+			serializer.endDocument();
+			
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			breturn = false;
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			breturn = false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			breturn = false;
+		}  
+			 
+			
+		File f = new File(path);			
+		
+		OutputStream os;
+		try {
+			f.createNewFile();
+			os = new FileOutputStream(f);
+			OutputStreamWriter osw=new OutputStreamWriter(os);  				
+			osw.write(writer.toString());				
+			osw.close();  
+			os.close(); 
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			breturn = false;
+		}  catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			breturn = false;
+		} 
+		return breturn;
+	}
+	
+	public static boolean importConfigFile(String path){
+		AppXmlList descriptionXml = new AppXmlList(GobalFinalData.CONFIG_FILE);
+        List<AppObject>listDescription = descriptionXml.parse();
+        if(listDescription != null){
+        	Iterator<AppObject> it = listDescription.iterator();
+        	
+        	SQLiteDatabase db = dbHelper.getWritableDatabase();
+        	ContentValues valuse = new ContentValues();
+        	
+        	while(it.hasNext()){
+        		AppObject app = it.next();
+        		valuse.put(APP_DESCRIPTION, app.description);
+        		int n = db.update(TABLE_NAME, valuse, 
+        				APP_PACKAGE_NAME + "='" + app.id + "'", null);
+        		if(n != 1){
+        			return false;
+        		}
+        	}
+        	
+        	db.close();
+        }
+        
+        return true;
+        
 	}
 }

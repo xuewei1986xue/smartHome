@@ -1,5 +1,7 @@
 package cn.com.ehome.until;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import cn.com.ehome.AppObject;
-import cn.com.ehome.Website;
 
 public class AppXmlList {
 	
@@ -26,14 +27,17 @@ public class AppXmlList {
 	Context context;
 	
 	//private static final String
-	private static final String ITEM = "item";
-	private static final String NAME = "name";
-	private static final String ID = "id";
-	private static final String DISCRIPTION = "discription";
+	public static final String ITEM = "item";
+	public static final String NAME = "name";
+	public static final String ID = "id";
+	public static final String DISCRIPTION = "discription";
 	
 	public AppXmlList(Context context, String xmlPath){
 		mXmlPath = xmlPath;
 		this.context = context;
+	}
+	public AppXmlList(String xmlPath){
+		mXmlPath = xmlPath;
 	}
 	
 	public List<AppObject> parse(){
@@ -78,8 +82,8 @@ public class AppXmlList {
 		}
 		InputStream inputStream = null;
 		try {
-			//inputStream = new FileInputStream(new File(mXmlPath));
-			inputStream = context.getResources().getAssets().open(mXmlPath);
+			inputStream = new FileInputStream(new File(mXmlPath));
+			//inputStream = context.getResources().getAssets().open(mXmlPath);
 		} catch (IllegalStateException e) {
 			//e.printStackTrace();
 			return false;
@@ -105,20 +109,6 @@ public class AppXmlList {
 		return true;		
 	}
 	
-	public Boolean writeXml(List<AppObject> list){
-		Boolean bRet = true;
-	/*	Document mDoc = null;
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db = null;
-		try {
-			db = dbf.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			return false;
-		}
-		db.
-		mDoc.*/
-		return bRet;
-	}
+	
 
 }

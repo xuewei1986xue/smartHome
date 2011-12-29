@@ -13,5 +13,8 @@
 	<string name="fuction5">Information</string>
 	<string name="fuction6">Food</string>	
 	<string name="home">Return Home</string>
+	
+	<!-- Wallpaper -->
+    <string name="wallpaper_instructions">Tap picture to set portrait wallpaper</string>
 
 </resources>

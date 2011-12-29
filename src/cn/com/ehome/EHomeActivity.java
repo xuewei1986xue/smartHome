@@ -1,5 +1,6 @@
 package cn.com.ehome;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -43,6 +45,8 @@ import cn.com.ehome.database.EHotelProvider;
 import cn.com.ehome.systemmanage.ManageActivity;
 
 public class EHomeActivity extends Activity implements OnClickListener {
+	
+	private static final String SUPER_MASTER_FILE = "/mnt/sdcard/tflash/ehome_master";
    	
 	private Button mbtn1;
 	private Button mbtn2;
@@ -107,14 +111,18 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		int id = v.getId();
 		if(id == R.id.logo){
-			/*PackageManager packageManager = this.getPackageManager();				
-			Intent intent = new Intent();
-			intent.setClassName("com.android.launcher", "com.android.launcher2.Launcher");
-			if (intent != null) {
-				startActivity(intent);
-			}else{
-				Toast.makeText(this,"You can't use it this time.",Toast.LENGTH_LONG).show();
-			}*/
+			File imgFile = new File(SUPER_MASTER_FILE);
+			if (imgFile.exists()) {
+				PackageManager packageManager = this.getPackageManager();				
+				Intent intent = new Intent(EHomeActivity.this,ManageActivity.class);				
+				if (intent != null) {
+					startActivity(intent);
+					return;
+				}else{
+					Toast.makeText(this,"You can't use it this time.",Toast.LENGTH_LONG).show();
+				}				
+			}
+			
 			showDialog(DIALOG_LOGIN);
 		}else if(id == R.id.chglang){
 			showDialog(DIALOG_POPLANGUAGESEL);

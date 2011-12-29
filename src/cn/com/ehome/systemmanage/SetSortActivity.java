@@ -95,11 +95,25 @@ public class SetSortActivity extends Activity implements OnItemClickListener,
 		applist = (ListView) findViewById(R.id.app_sort_list_id);
 		applist.setOnItemClickListener(this);
 		
-		findViewById(R.id.btnOk).setOnClickListener(new OnClickListener(){
+		findViewById(R.id.btn_export).setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View view) {
 				// TODO out put xml file
+			
+				EHotelProvider.savaAsConfig(GobalFinalData.CONFIG_FILE);
+				Toast.makeText(SetSortActivity.this, R.string.sava_file_suc, Toast.LENGTH_SHORT).show();
+				
+			}
+			
+		});
+		findViewById(R.id.btn_import).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View view) {
+			
+				EHotelProvider.importConfigFile(GobalFinalData.CONFIG_FILE);
+				Toast.makeText(SetSortActivity.this, R.string.import_file_suc, Toast.LENGTH_SHORT).show();
 				
 			}
 			

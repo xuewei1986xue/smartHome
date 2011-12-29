@@ -39,7 +39,7 @@ public class GobalFinalData {
 	public static final int REQUEST_CODE_DOWNLOAD_PATH_SETTING_CANCEL = 0;
 	
 
-	public static final String CONFIG_FILE = "/mnt/sdcard/ehome/init.xml";
+	public static final String CONFIG_FILE = "/mnt/sdcard/tflash/config.xml";
 	
 	public static final String FIRST_TIME_FLAG = "FIRST_TIME_FLAG";
 	public static final String LANG = "lang";

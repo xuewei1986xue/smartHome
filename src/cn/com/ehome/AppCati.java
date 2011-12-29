@@ -2,15 +2,12 @@ package cn.com.ehome;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -28,9 +25,8 @@ import android.widget.CursorAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cn.com.ehome.app.IconifiedText;
-import cn.com.ehome.app.IconifiedTextListAdapter;
 import cn.com.ehome.database.EHotelProvider;
+import cn.com.ehome.until.AppXmlList;
 import cn.com.ehome.until.GobalFinalData;
 import cn.com.ehome.until.WebsiteList;
 
@@ -49,6 +45,7 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 	public static final int MODE_WEBSITE_VIDEO = 3;
 	
 	private ArrayList<ApplicationInfo> mApplications;
+	
 	
 	@Override
 	 public void onCreate(Bundle savedInstanceState) {		 
@@ -74,14 +71,16 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 	        		break;
 	        	case MODE_APP_GAME:
 	        		loadApplications(MODE_APP_GAME);
-	        	break;
+	        		break;
 	        	case MODE_WEBSITE_VIDEO:
 	        		WebsiteList websiteList = new WebsiteList(this, "website_video.xml");
 	        		mWebsitelist = websiteList.parse();
 	        		MySimpleAdapter websiteAdapter = new MySimpleAdapter(mWebsitelist);	        		
 	        		gridview.setAdapter(websiteAdapter);
-	        	break;
+	        		break;
 	        }
+	        
+	        
 	        
 	 }
 
