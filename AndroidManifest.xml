@@ -29,22 +29,23 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/elogo"
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
             android:name=".EHomeActivity"
             android:theme="@style/Theme.CustomNoTitleFullScreenThememainbg" >
-            <intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-				<category android:name="android.intent.category.HOME" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.MONKEY" />
-			</intent-filter>
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.MONKEY" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".InfoActivity"
@@ -54,32 +55,43 @@
             android:name=".AppCati"
             android:theme="@style/Theme.CustomNoTitleFullScreenThememainbg" >
         </activity>
-        
-        <activity android:name=".systemmanage.SetSortActivity"
-			android:theme="@style/Theme.ManageWindow" android:label="@string/manager_setting_sort"
-			android:screenOrientation="nosensor">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-			</intent-filter>
-		</activity>
+        <activity
+            android:label="@string/manager_setting_sort"
+            android:name=".systemmanage.SetSortActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/Theme.ManageWindow" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:label="@string/manager_setting"
+            android:name=".systemmanage.ManageActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/Theme.ManageWindow" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 
-		<activity android:name=".systemmanage.ManageActivity"
-			android:theme="@style/Theme.ManageWindow" android:label="@string/manager_setting"
-			android:screenOrientation="nosensor">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-			</intent-filter>
-		</activity>
+        <provider
+            android:authorities="cn.com.ehome.database.EHotelProvider"
+            android:name=".database.EHotelProvider" />
 
-		<provider android:authorities="cn.com.ehome.database.EHotelProvider"
-			android:name=".database.EHotelProvider" />
-		
-		<activity android:name="Wallpaper"
-                android:label="Wallpaper"
-                android:icon="@drawable/bg_home_icon">
-            <intent-filter>
+        <activity
+            android:icon="@drawable/elogo"
+            android:label="智能E房专用壁纸"
+            android:name="Wallpaper" >
+            <intent-filter >
                 <action android:name="android.intent.action.SET_WALLPAPER" />
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="SmitBrowser"
+            android:theme="@style/Theme.CustomNoTitleFullScreenThemefunbg" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
     </application>

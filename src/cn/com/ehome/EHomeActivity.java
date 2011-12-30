@@ -126,13 +126,13 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			showDialog(DIALOG_LOGIN);
 		}else if(id == R.id.chglang){
 			showDialog(DIALOG_POPLANGUAGESEL);
-		}else if(id == R.id.button1){
-			Intent intent = new Intent();
-			intent.setClass(this, InfoActivity.class);
+		}else if(id == R.id.button1){			
+			Intent intent = new Intent(EHomeActivity.this,SmitBrowser.class);	
+			intent.putExtra(SmitBrowser.OPEN_URL, "file:///android_asset/test/index.html");
 			startActivity(intent);
 		}else if(id == R.id.button2){
-			Intent intent = new Intent();
-			intent.setClass(this, InfoActivity.class);
+			Intent intent = new Intent(EHomeActivity.this,SmitBrowser.class);	
+			intent.putExtra(SmitBrowser.OPEN_URL, "file:///android_asset/test/film/index.html");
 			startActivity(intent);
 		}
 		else if(id == R.id.button3){

@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -26,7 +25,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.ehome.database.EHotelProvider;
-import cn.com.ehome.until.AppXmlList;
 import cn.com.ehome.until.GobalFinalData;
 import cn.com.ehome.until.WebsiteList;
 
@@ -34,7 +32,8 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 
 	private GridView gridview;
 	private TextView mTextView;
-	private WebView mWebview;
+	//private WebView mWebview;
+	private ImageView mImgViewDescrip;
 	private TextView mDescription;
 	private int mMode = 1;
 	private List<Website> mWebsitelist = null;
@@ -55,12 +54,18 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 	        gridview = (GridView)findViewById(R.id.gridview);
 	        mDescription = (TextView)findViewById(R.id.description);
 	        
-	        gridview.setOnItemClickListener(this);	 
-	        
+	        gridview.setOnItemClickListener(this);	 	        
 	        gridview.setOnItemSelectedListener(this);
+	        gridview.setEmptyView(findViewById(R.id.tips));
 	        
-	        mWebview = (WebView)findViewById(R.id.webView1);
-	        mWebview.loadUrl("file:///mnt/sdcard/google.png");
+	        //mWebview = (WebView)findViewById(R.id.webView1);
+	        //mWebview.loadUrl("file:///mnt/sdcard/google.png");
+	        //mWebview.loadUrl("file:///android_asset/test/index.html");
+	        
+	        //mWebview.getSettings().setSupportZoom(false);
+	        //mWebview.getSettings().setLoadWithOverviewMode(true);;
+	        
+	        mImgViewDescrip = (ImageView)findViewById(R.id.imgview_description);
 	        
 	       
 	        Intent intent = getIntent();
@@ -126,9 +131,11 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
      	case MODE_WEBSITE_VIDEO:
      		if(mWebsitelist != null){
      			if(position%2 == 0){
-     				mWebview.loadUrl("file:///mnt/sdcard/HTML/test2.html");
+     				//mWebview.loadUrl("file:///mnt/sdcard/HTML/test2.html");
+     				mImgViewDescrip.setImageResource(R.drawable.elogo);
      			}else{
-     				mWebview.loadUrl("file:///mnt/sdcard/HTML/test.html");
+     				mImgViewDescrip.setImageResource(R.drawable.blue_glow);
+     				//mWebview.loadUrl("file:///android_asset/image/shiping5.jpg");
      			}
      		}	
      	break;
@@ -308,10 +315,12 @@ public class AppCati extends Activity implements OnItemClickListener, OnItemSele
 			}
 
 			ImageView appIcon = (ImageView) convertView.findViewById(R.id.gridicon);
-
-			Uri uri = Uri.parse(ws.icon);
-			appIcon.setImageURI(uri);
 			
+			// TODO demo
+			//Uri uri = Uri.parse(ws.icon);
+			//appIcon.setImageURI(uri);
+			
+			appIcon.setImageResource(R.drawable.shiping_icon);
 
 			final TextView textView = (TextView) convertView
 					.findViewById(R.id.gridname);

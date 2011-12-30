@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent"
+	android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<LinearLayout android:id="@+id/containerBody"
+		android:layout_height="match_parent" android:layout_width="match_parent"
+		/>
+	<FrameLayout android:id="@+id/fullscreen_custom_content"
+		android:visibility="gone" android:background="@android:color/black"
+		android:layout_width="match_parent" android:layout_height="match_parent" />
+
+</FrameLayout>

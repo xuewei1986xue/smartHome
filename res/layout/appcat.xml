@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="实例你安装的APK"
+            android:text="这里是标题"
             android:textSize="20sp"
             android:textColor="@android:color/black" />
     </LinearLayout>
@@ -30,7 +30,7 @@
 
         <GridView
             android:id="@+id/gridview"
-            android:layout_width="600dp"
+            android:layout_width="@dimen/gridview_width"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:horizontalSpacing="1dip"
@@ -39,6 +39,15 @@
             android:verticalSpacing="1dip"
             android:listSelector="@drawable/grid_selector_bg"
             android:background="#33FFFFFF" />
+
+        <TextView
+            android:id="@+id/tips"
+            android:layout_width="@dimen/gridview_width"
+            android:layout_height="fill_parent"
+            android:text="没有相关信息，请管理员到管理员界面设置"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="gone" 
+            android:gravity="center"/>
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -57,13 +66,19 @@
                 android:textColor="#ff555555"
                 android:layout_margin="5dp" />
 
-            <WebView
+            <!-- <WebView
                 android:id="@+id/webView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="false"
                 android:scrollbars="none"
-                />
+                /> -->
+
+            <ImageView
+                android:id="@+id/imgview_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/elogo" />
 
         </LinearLayout>
     </LinearLayout>

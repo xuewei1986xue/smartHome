@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>〓酒水界面〓</title>
+    <style type="text/css">
+html{ overflow:hidden;}
+body { margin:0; font:12px/1.5 "微软雅黑",Tahoma,Helvetica,Arial,sans-serif; line-height:150%; height:100%;}
+ul,dl,h1,h2,h3,h4,h5,h6,form { padding:0; margin:0; list-style:none;}
+
+#show-box { font-size:12px; width:100%; margin:0 auto; background:#EEE; padding:20px; overflow:hidden}
+#show-box a{ text-decoration:none; color:#000;}
+#show-box img{ border:none;}
+#show-box ul{ list-style:none;margin:0;}
+#show-box span.rank{ color:#CD1900;}
+
+#show-box .icon_up{ background:url(images/icon_state.gif) no-repeat; width:9px;}
+#show-box .icon_down{ background:url(images/icon_state.gif) 0 -14px no-repeat; width:9px;}
+#show-box .icon_stay{ background:url(images/icon_state.gif) 0 -26px no-repeat; width:9px;}
+
+#show-box a.album_img{ padding:2px; width:100px; height:100px; border:1px solid #AAA; display:block; background:#FFF; float:left;}  /* 图片大小 */
+#show-box .btn_enter{ background:url(images/enter.gif) no-repeat; width:74px; height:16px; line-height:18px; overflow:hidden; display:block; color:#FFF; text-indent:20px;}
+#show-box .mOut{ background:url(images/enter.gif) 0 -16px no-repeat; width:74px; height:16px; display:block; color:#FFF; line-height:18px; text-indent:20px;}
+
+#show-box li{ margin:0 8px; }
+#show-box li ul{ margin-left:10;float:left;}
+#show-box li ul:after{ content:"."; display:block; height:0; visibility:hidden; clear:both;}
+#show-box li li{ height:21px;}
+#show-box li.level div{width:100px; height:15px;}  /* 星星大小高度 */
+
+#show-box div.level_1{ background:url(images/star_combine.gif) 0 -60px no-repeat;}
+#show-box div.level_2{ background:url(images/star_combine.gif) 0 -45px no-repeat;}
+#show-box div.level_3{ background:url(images/star_combine.gif) 0 -30px no-repeat;}
+#show-box div.level_4{ background:url(images/star_combine.gif) 0 -15px no-repeat;}
+#show-box div.level_5{ background:url(images/star_combine.gif) no-repeat;}
+
+#show-box .expand{ width:248px; height:137px; float:left; margin-top:-10px;}   /* 框大小 */
+#show-box .expand{ background:url(images/bg_01.gif); padding:10px 0 0 8px;}
+#show-box .expand .album_title{ clear:both; font-size:13px; height:18px; background:url(images/icon_01.gif) no-repeat; padding:8px 0 0 20px; margin:0;}
+#show-box .expand a.title_a{ font-weight:bold; display:block; height:14px; width:90px; overflow:hidden; float:left;}
+#show-box .expand a.title_a:hover{ text-decoration:underline;}
+#show-box .expand a.title_b{color:#CA1A00; font-weight:bold;display:block; height:14px; width:90px; overflow:hidden; float:left;}
+#show-box .expand a.title_b:hover{ text-decoration:underline;}
+#show-box .expand .title_dash{ float:left; display:block; margin-right:5px;}
+
+#show-box .shrink{ width:105px; height:147px; float:left;}
+#show-box .shrink ul{display:none;}
+#show-box .shrink .album_title { margin-top:84px; _margin-top:8px; }
+#show-box .shrink .album_title a{ display:block; overflow:hidden; height:14px; text-align:center; margin-top:2px;}
+#show-box .shrink .album_title a:hover{ text-decoration:underline;}
+#show-box .shrink .title_dash{ display:none;}
+    </style>
+	<script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+	<div id="show-box">
+		<ul>
+			<!--Start -->
+			<li class="expand"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul1.jpg"  width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<!-- End -->
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul2.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul3.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul4.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul5.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul6.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul7.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul8.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+			<li class="shrink"> <a href="javascript:void(0)" class="album_img"><img src="images/jiul9.jpg" width="100px" height="100px" /></a>
+				<ul>
+					<li class="level">
+						<div class="level_5"></div>
+					</li>
+					<li> 今日排名: <span class="rank">25</span> <img class="icon_up" /> </li>
+					<li> 今日人气指数: <span class="rank">2552</span> </li>
+					<li> <a class="btn_enter" title="" href="#">立即点购</a> </li>
+				</ul>
+				<p class="album_title"> <a href="#" class="title_a">自定名称</a><span class="title_dash">-</span> <a href="#" class="title_b">自定价钱</a> </p>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
+
+

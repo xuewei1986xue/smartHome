@@ -92,5 +92,6 @@
 	<string name="wallpaper_instructions">选择图片来设置背景</string>
 	<string name="sava_file_suc">保存成文件成功</string>
 	<string name="import_file_suc">导入配置文件成功</string>
+	<string name="loading_video">Loading</string>
 	
 </resources>

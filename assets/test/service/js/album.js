@@ -1,0 +1,16 @@
+(function($){
+	$().ready(function(){
+		$("#show-box").find(".btn_enter").hover(function(){
+			$(this).addClass("mOut");
+		},function(){
+			$(this).removeClass("mOut");
+		})
+		$("#show-box").find(".album_img").hover(function(){
+			$("#show-box>ul>li").attr("class","shrink");
+			$(this).css("background","#e4007f");
+			$(this).parent().attr("class","expand");
+		},function(){
+			$(this).css("background","#FFF");
+		})
+	})
+})(jQuery)

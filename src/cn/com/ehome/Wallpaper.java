@@ -95,7 +95,7 @@ public class Wallpaper extends Activity implements
     
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        selectWallpaper(mGallery.getSelectedItemPosition());
+        //selectWallpaper(mGallery.getSelectedItemPosition());
         return true;
     }
 
