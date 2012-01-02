@@ -226,8 +226,23 @@ public class EHotelProvider extends ContentProvider {
 				e.printStackTrace();
 			}
 		}
-		return intent;
-		
+		return intent;		
+	}
+	
+	public static String[] getStringsById(long id, String[] columnName){
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		SQLiteDatabase db = dbHelper.getReadableDatabase();		
+		String where = ID + "=" + id;
+		Cursor c = db.query(TABLE_NAME,columnName, where, null, null, null, null);
+		String[] retString = null;
+		if(c != null && c.getCount()>0){
+			c.moveToFirst();
+			retString = new String[columnName.length];
+			for(int i=0; i<columnName.length; i++){
+				retString[i] = c.getString(i);
+			}			
+		}
+		return retString;		
 	}
 	
 

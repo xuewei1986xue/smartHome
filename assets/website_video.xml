@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-<website name="奇艺" url="http://www.qiyi.com" icon="file:///android_asset/image/shiping11.jpg" discription="discrption"></website>
-<website name="优酷" url="http://www.youku.com" icon="file:///android_asset/image/shiping16.jpg" discription="discrption"></website>
-<website name="56" url="http://www.56.com" icon="file:///android_asset/image/shiping1.jpg" discription="discrption"></website>
-<website name="PPTV" url="http://www.pptv.com" icon="file:///android_asset/image/shiping2.jpg" discription="discrption"></website>
-<website name="土豆网" url="http://www.tudou.com" icon="file:///android_asset/image/shiping3.jpg" discription="discrption"></website>
-<website name="第一视频" url="http://www.vodone.com" icon="file:///android_asset/image/shiping4.jpg" discription="discrption"></website>
-<website name="乐视网" url="http://www.letv.com" icon="file:///android_asset/image/shiping5.gif" discription="discrption"></website>
-<website name="凤凰视频" url="http://v.ifeng.com" icon="file:///android_asset/image/shiping6.jpg" discription="discrption"></website>
-<website name="江苏卫视" url="http://www.jstv.com" icon="file:///android_asset/image/shiping7.jpg" discription="discrption"></website>
-<website name="酷6" url="http://www.ku6.com" icon="file:///android_asset/image/shiping8.jpg" discription="discrption"></website>
-<website name="搜狐视频" url="http://tv.sohu.com" icon="file:///android_asset/image/shiping12.jpg" discription="discrption"></website>
-<website name="腾讯视频" url="http://v.qq.com" icon="file:///android_asset/image/shiping13.jpg" discription="discrption"></website>
+	<website name="奇艺" url="http://www.qiyi.com"
+		icon="image/shiping11.jpg" discription="这是一个叫奇艺的视频网站，可能是说里面有奇怪的艺术吧"></website>
+	<website name="优酷" url="http://www.youku.com"
+		icon="image/shiping16.jpg" discription="优酷是国内最早最大的视频网站，看名字就知道是抄袭youtube的，恩，抄的不错"></website>
+	<website name="56" url="http://www.56.com"
+		icon="image/shiping1.jpg" discription="写下你对56的了解吧"></website>
+	<website name="PPTV" url="http://www.pptv.com"
+		icon="image/shiping2.jpg" discription=""></website>
+	<website name="土豆网" url="http://www.tudou.com"
+		icon="image/shiping3.jpg" discription=""></website>
+	<website name="第一视频" url="http://www.vodone.com"
+		icon="image/shiping4.jpg" discription=""></website>
+	<website name="乐视网" url="http://www.letv.com"
+		icon="image/shiping5.gif" discription=""></website>
+	<website name="凤凰视频" url="http://v.ifeng.com"
+		icon="image/shiping6.jpg" discription="凤凰视频"></website>
+	<website name="江苏卫视" url="http://www.jstv.com"
+		icon="image/shiping7.jpg" discription="discrption"></website>
+	<website name="酷6" url="http://www.ku6.com"
+		icon="image/shiping8.jpg" discription="酷6"></website>
+	<website name="搜狐视频" url="http://tv.sohu.com"
+		icon="image/shiping12.jpg" discription="discrption"></website>
+	<website name="腾讯视频" url="http://v.qq.com"
+		icon="image/shiping13.jpg" discription="discrption"></website>
 
 </root>

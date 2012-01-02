@@ -10,5 +10,10 @@
 	<dimen name="logo_height">220dp</dimen>
 	
 	<dimen name="gridview_width">600dp</dimen>
+	<dimen name="lang_margin_r">40dp</dimen>
+	<dimen name="lang_margin_t">30dp</dimen>
+	
+	    <dimen name="margin_global">5dp</dimen>
+	    
     
 </resources>

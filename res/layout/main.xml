@@ -17,7 +17,7 @@
             android:layout_width="@dimen/logo_width"
             android:layout_height="@dimen/logo_height"
             android:layout_centerInParent="true"
-            android:background="@drawable/elogo"
+            android:background="@drawable/logo"
             android:focusable="false"
             android:text="" />
 
@@ -25,13 +25,15 @@
             android:id="@+id/chglang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/logo"
-            android:layout_toRightOf="@+id/logo"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/lang_margin_r"
+            android:layout_marginTop="@dimen/lang_margin_t"
             android:background="@drawable/menu_bg"
             android:padding="@dimen/lang_padding"
             android:text="@string/chg_lang"
-            android:textColor="@android:color/white" >
-        </Button>
+            android:textColor="@android:color/white" />
+
     </RelativeLayout>
 
     <LinearLayout

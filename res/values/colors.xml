@@ -37,5 +37,6 @@
     
     <color name="indicator_r">#55FF1111</color>
     <color name="indicator_blue">#551111FF</color>
+    <color name="gridview_item_text_color">#ff000000</color>
     
 </resources>

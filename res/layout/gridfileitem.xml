@@ -21,7 +21,7 @@
 		android:maxLines="2"
 		android:gravity="center"
 		android:text="Loading"
-		android:textColor="#ff555555">
+		android:textColor="@color/gridview_item_text_color">
 
 	</TextView>
 </LinearLayout>

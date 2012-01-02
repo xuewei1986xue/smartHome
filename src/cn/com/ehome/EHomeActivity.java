@@ -82,6 +82,7 @@ public class EHomeActivity extends Activity implements OnClickListener {
         
         mbtn1 =  (Button)findViewById(R.id.button1);
         mbtn1.setOnClickListener(this);
+        mbtn1.requestFocus();
         mbtn2 =  (Button)findViewById(R.id.button2);
         mbtn2.setOnClickListener(this);
         mbtn3 =  (Button)findViewById(R.id.button3);
