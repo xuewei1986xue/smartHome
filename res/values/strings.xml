@@ -97,5 +97,11 @@
 	<string name="default_descri">
 	<![CDATA["缺省说明：这里显示图文说明,可以编辑你对APK<font size="50" color="red"><b>%1$s</b></font> 的说明"]]>
 	</string>
+
+	<string name="app_name_movies">酒店专用高清播放器</string>
+	<string name="play_error">播放错误!</string>
+	<string name="play_original">原始大小</string>
+	<string name="play_scale_stretch">比例拉伸</string>
+	<string name="play_stretch_to_fullscreen">拉伸到屏幕尺寸</string>
 	
 </resources>
