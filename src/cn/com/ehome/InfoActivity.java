@@ -1,13 +1,17 @@
 package cn.com.ehome;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
+import android.widget.ViewSwitcher.ViewFactory;
 
 
-public class InfoActivity extends Activity implements OnClickListener {
+public class InfoActivity extends FragmentActivity implements OnClickListener, ViewFactory {
 		
 	private Button mBtn1;
 	private Button mBtn2;
@@ -15,6 +19,8 @@ public class InfoActivity extends Activity implements OnClickListener {
 	private Button mBtn4;
 	
 	private Button mBtnBack;
+	
+	private ImageSwitcher mImgSwich_bg;
 	
 	private View mContent;
 	private int mLevel = 1;
@@ -36,6 +42,11 @@ public class InfoActivity extends Activity implements OnClickListener {
 	        mBtn3.setOnClickListener(this);
 	        mBtn4.setOnClickListener(this);
 	        mBtnBack.setOnClickListener(this);
+	        
+	        mImgSwich_bg = (ImageSwitcher)findViewById(R.id.is_bg);
+	        mImgSwich_bg.setInAnimation(this, R.anim.fade_in_fast);
+	        mImgSwich_bg.setOutAnimation(this, R.anim.fade_out_fast);
+	        mImgSwich_bg.setFactory(this);
 	        
 	        mContent = (View)findViewById(R.id.content);
 	        mLevel = 1;
@@ -124,16 +135,20 @@ public class InfoActivity extends Activity implements OnClickListener {
 		 case 1:
 			 switch(id){
 			 case R.id.button1:
-				 mContent.setBackgroundResource(R.drawable.btn1_1);
+				 //mContent.setBackgroundResource(R.drawable.btn1_1);
+				 mImgSwich_bg.setImageResource(R.drawable.btn1_1);
 				 break;
 			 case R.id.button2:
-				 mContent.setBackgroundResource(R.drawable.btn2_1);
+				 mImgSwich_bg.setImageResource(R.drawable.btn2_1);
+				 //mContent.setBackgroundResource(R.drawable.btn2_1);
 				 break;
 			 case R.id.button3:
-				 mContent.setBackgroundResource(R.drawable.btn1_3);
+				 mImgSwich_bg.setImageResource(R.drawable.btn1_3);
+				 //mContent.setBackgroundResource(R.drawable.btn1_3);
 				 break;
 			 case R.id.button4:
-				 mContent.setBackgroundResource(R.drawable.btn1_4);
+				 //mContent.setBackgroundResource(R.drawable.btn1_4);
+				 mImgSwich_bg.setImageResource(R.drawable.btn1_4);
 				 break;
 			 default:
 				break;
@@ -185,5 +200,14 @@ public class InfoActivity extends Activity implements OnClickListener {
 			break;
 		 }		
 	 }
+	@Override
+	public View makeView() {
+		 ImageView i = new ImageView(this);
+		  i.setBackgroundColor(0xFF000000);
+		  i.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		  i.setLayoutParams(new ImageSwitcher.LayoutParams(
+		    LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		  return i;
+	}
 		
 }

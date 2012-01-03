@@ -10,18 +10,26 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2207DB93"
         android:orientation="vertical" >
+
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
             android:text="这里是标题"
             android:textSize="20sp"
             android:textColor="@android:color/black"
             android:visibility="gone" />
+
+        <fragment
+            android:id="@+id/fragment_ad"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ad_height"
+            android:name="cn.com.ehome.AdFragment"
+            />
+
     </LinearLayout>
 
     <LinearLayout

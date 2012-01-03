@@ -6,21 +6,23 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -33,7 +35,7 @@ import cn.com.ehome.database.EHotelProvider;
 import cn.com.ehome.until.GobalFinalData;
 import cn.com.ehome.until.WebsiteList;
 
-public class AppCati extends Activity implements OnItemClickListener,
+public class AppCati extends FragmentActivity implements OnItemClickListener,
 		OnItemSelectedListener {
 
 	private GridView gridview;
@@ -63,6 +65,19 @@ public class AppCati extends Activity implements OnItemClickListener,
 		gridview.setOnItemSelectedListener(this);
 		gridview.setEmptyView(findViewById(R.id.tips));
 		gridview.requestFocus();
+		
+		final AnimationDrawable ad = (AnimationDrawable)getResources().getDrawable(R.drawable.test_ani_list);
+		
+		findViewById(R.id.title).setBackgroundDrawable(ad);
+		gridview.post(new Runnable() {
+		    public void run() {
+		        if ( ad != null ) ad.start();
+		        Animation animation = AnimationUtils.loadAnimation(AppCati.this, R.anim.fade_in_fast);
+				findViewById(R.id.title).startAnimation(animation);
+		      }
+		});		
+		
+		
 
 		// mWebview = (WebView)findViewById(R.id.webView1);
 		// mWebview.loadUrl("file:///mnt/sdcard/google.png");
@@ -74,7 +89,7 @@ public class AppCati extends Activity implements OnItemClickListener,
 		mImgViewDescrip = (ImageView) findViewById(R.id.imgview_description);
 
 		Intent intent = getIntent();
-		mMode = intent.getIntExtra(VIEW_MODE, MODE_APP);
+		mMode = intent.getIntExtra(VIEW_MODE, MODE_WEBSITE_VIDEO);
 		switch (mMode) {
 		case MODE_APP:
 			loadApplications(MODE_APP);
@@ -91,6 +106,16 @@ public class AppCati extends Activity implements OnItemClickListener,
 		}
 
 	}
+	
+	
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		gridview.requestFocus();
+	}
+
+
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position,

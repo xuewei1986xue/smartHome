@@ -5,6 +5,16 @@
     android:orientation="vertical" 
     android:background="@drawable/bg_home"
     android:id="@+id/content">
+    
+    <ImageSwitcher
+        android:id="@+id/is_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+    </ImageSwitcher>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -69,5 +79,7 @@
         android:padding="20dp"
         android:text="@string/home"
         android:textColor="@android:color/white" />
+
+
 
 </RelativeLayout>
