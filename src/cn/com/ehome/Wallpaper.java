@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.Gallery.LayoutParams;
 
 import java.io.IOException;
@@ -84,6 +85,8 @@ public class Wallpaper extends Activity implements
             InputStream stream = getResources().openRawResource(IMAGE_IDS[position]);
             setWallpaper(stream);
             setResult(RESULT_OK);
+            Toast t = Toast.makeText(this, R.string.set_wallpaper_succuss, Toast.LENGTH_LONG);
+            t.show();
             finish();
         } catch (IOException e) {
             Log.e(LOG_TAG, "Failed to set wallpaper " + e);

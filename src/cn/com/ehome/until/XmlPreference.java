@@ -13,12 +13,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.content.Context;
+
 public class XmlPreference {
 	String mXmlPath = null;
 	Document mDoc = null;
-	
+	boolean bAssets = false;
+	Context context;
 	public XmlPreference(String xmlPath){
 		mXmlPath = xmlPath;	
+	}
+	public XmlPreference(boolean bAssets,Context context,String xmlPath){
+		this.bAssets = bAssets;
+		mXmlPath = xmlPath;
+		this.context = context;
 	}
 	public String getKeyValue(String key){
 		if(init() == false){
@@ -45,8 +53,11 @@ public class XmlPreference {
 		}
 		InputStream inputStream = null;
 		try {
-			inputStream = new FileInputStream(new File(mXmlPath));
-			// inputStream = getResources().getAssets().open("hotel_init.xml");
+			if(bAssets==false){
+				inputStream = new FileInputStream(new File(mXmlPath));
+			}else{
+				inputStream = context.getResources().getAssets().open(mXmlPath);
+			}
 		} catch (IllegalStateException e) {
 			//e.printStackTrace();
 			return false;

@@ -11,15 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" >
-
-        <Button
-            android:id="@+id/logo"
-            android:layout_width="@dimen/logo_width"
-            android:layout_height="@dimen/logo_height"
-            android:layout_centerInParent="true"
-            android:background="@drawable/logo"
-            android:focusable="false"
-            android:text="" />
+		<LinearLayout
+			android:name="@+id/logoname"
+			android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:orientation="vertical">
+			<Button
+	            android:id="@+id/logo"
+	            android:layout_width="@dimen/logo_width"
+	            android:layout_height="@dimen/logo_height"            
+	            android:background="@drawable/logo"
+	            android:focusable="false"
+	            android:layout_gravity="center_horizontal"
+	            android:text="" />
+            <TextView android:id="@+id/welcome"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp"		
+				android:textSize="@dimen/welcome_font_size"
+				android:maxLines="1"
+				android:gravity="center"
+				android:text="@string/welcome"
+				android:textColor="@color/welcome_text_color">
+			</TextView>
+		</LinearLayout>
+        
 
         <Button
             android:id="@+id/chglang"
@@ -32,7 +49,7 @@
             android:background="@drawable/menu_bg"
             android:padding="@dimen/lang_padding"
             android:text="@string/chg_lang"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/welcome_button_text_color" />
 
     </RelativeLayout>
 
@@ -59,7 +76,7 @@
             android:background="@drawable/menu_bg"
             android:padding="@dimen/menu_padding"
             android:text="@string/fuction1"
-            android:textColor="@android:color/white" >
+            android:textColor="@color/welcome_button_text_color" >
         </Button>
 
         <Button
@@ -70,7 +87,7 @@
             android:background="@drawable/menu_bg"
             android:padding="@dimen/menu_padding"
             android:text="@string/fuction2"
-            android:textColor="@android:color/white" >
+            android:textColor="@color/welcome_button_text_color" >
         </Button>
 
         <Button
@@ -81,7 +98,7 @@
             android:background="@drawable/menu_bg"
             android:padding="@dimen/menu_padding"
             android:text="@string/fuction3"
-            android:textColor="@android:color/white" >
+            android:textColor="@color/welcome_button_text_color" >
         </Button>
 
         <Button
@@ -92,7 +109,7 @@
             android:background="@drawable/menu_bg"
             android:padding="@dimen/menu_padding"
             android:text="@string/fuction4"
-            android:textColor="@android:color/white" >
+            android:textColor="@color/welcome_button_text_color" >
         </Button>
 
         <Button
@@ -103,7 +120,7 @@
             android:background="@drawable/menu_bg"
             android:padding="@dimen/menu_padding"
             android:text="@string/fuction5"
-            android:textColor="@android:color/white" >
+            android:textColor="@color/welcome_button_text_color" >
         </Button>
 
         <Button
@@ -114,7 +131,7 @@
             android:background="@drawable/menu_bg"
             android:gravity="center"
             android:text="@string/fuction6"
-            android:textColor="@android:color/white" >
+            android:textColor="@color/welcome_button_text_color" >
         </Button>
 
         <Button

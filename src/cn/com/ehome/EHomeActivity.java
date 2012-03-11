@@ -13,11 +13,14 @@ import android.app.ActivityManagerNative;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.IActivityManager;
+import android.app.WallpaperManager;
 import android.app.backup.BackupManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -32,22 +35,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView.OnEditorActionListener;
 import cn.com.ehome.database.EHotelProvider;
 import cn.com.ehome.systemmanage.ManageActivity;
+import cn.com.ehome.until.GobalFinalData;
+import cn.com.ehome.until.XmlPreference;
+
 
 public class EHomeActivity extends Activity implements OnClickListener {
 	
 	private static final String SUPER_MASTER_FILE = "/mnt/sdcard/tflash/ehome_master";
-   	
+	
 	private Button mbtn1;
 	private Button mbtn2;
 	private Button mbtn3;
@@ -63,11 +69,11 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	private String[] mSpecialLocaleCodes;
 	private String[] mSpecialLocaleNames;
 	
+	private String HOTEL_HOME = "file:///android_asset/test/index.html";
+	private String HOTEL_INFO = "file:///android_asset/test/film/index.html";
 	EditText etPassword;
 	
 	private static String TAG = "home";
-	private static boolean mWallpaperChecked = false;
-	private final BroadcastReceiver mWallpaperReceiver = new WallpaperIntentReceiver();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,17 +100,32 @@ public class EHomeActivity extends Activity implements OnClickListener {
         mbtn6 =  (Button)findViewById(R.id.button6);
         mbtn6.setOnClickListener(this);
         
-        IntentFilter filter = new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED);
-        registerReceiver(mWallpaperReceiver, filter);
-        
+        initData();
         setDefaultWallpaper();
+        
     }
 
+    private void initData(){
+    	/*File file = new File(GobalFinalData.INIT_FILE);
+		if (file.exists() == false) {
+			return;
+		}*/
+		
+		XmlPreference xmlPreference = new XmlPreference(true,this,GobalFinalData.INIT_FILE);		
+
+		String value = xmlPreference.getKeyValue("hotel");
+		if (value != null && value.isEmpty() == false) {
+			HOTEL_HOME = value;
+		}
+		value = xmlPreference.getKeyValue("info");
+		if (value != null && value.isEmpty() == false) {
+			HOTEL_INFO = value;
+		}
+    }
     
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
-		unregisterReceiver(mWallpaperReceiver);
+		super.onDestroy();		
 	}
 
 
@@ -129,11 +150,11 @@ public class EHomeActivity extends Activity implements OnClickListener {
 			showDialog(DIALOG_POPLANGUAGESEL);
 		}else if(id == R.id.button1){			
 			Intent intent = new Intent(EHomeActivity.this,SmitBrowser.class);	
-			intent.putExtra(SmitBrowser.OPEN_URL, "file:///android_asset/test/index.html");
+			intent.putExtra(SmitBrowser.OPEN_URL, HOTEL_HOME);
 			startActivity(intent);
 		}else if(id == R.id.button2){
 			Intent intent = new Intent(EHomeActivity.this,SmitBrowser.class);	
-			intent.putExtra(SmitBrowser.OPEN_URL, "file:///android_asset/test/film/index.html");
+			intent.putExtra(SmitBrowser.OPEN_URL, HOTEL_INFO);
 			startActivity(intent);
 		}
 		else if(id == R.id.button3){
@@ -455,31 +476,24 @@ public class EHomeActivity extends Activity implements OnClickListener {
             return mWallpaper.getOpacity();
         }
     }
-    
+    // you can set your own wallpaper here
+    // TODO wallpaper
     private void setDefaultWallpaper() {
-        if (!mWallpaperChecked) {
-            Drawable wallpaper = peekWallpaper();
-            if (wallpaper == null) {
-                try {
-                    clearWallpaper();
-                } catch (IOException e) {
-                    Log.e(TAG, "Failed to clear wallpaper " + e);
-                }
-                //getWindow().setBackgroundDrawableResource(R.drawable.bg_home);
-            } else {
-                //getWindow().setBackgroundDrawable(new ClippedDrawable(wallpaper));
-            }
-            //mWallpaperChecked = true;
-        }
+    	SharedPreferences s = getSharedPreferences("ehome",  MODE_WORLD_WRITEABLE);
+    	boolean init = s.getBoolean("init_wall_papaer", false);
+    	if(false == init){
+    		try {
+        		WallpaperManager.getInstance(this).clear();
+        		WallpaperManager.getInstance(this).setResource(R.drawable.bg_home4);
+        		Editor editor = s.edit();
+        		editor.putBoolean("init_wall_papaer", true);
+        		editor.commit();
+        		//finish();
+        		
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}        
     }
-    
-    /**
-     * Receives intents from other applications to change the wallpaper.
-     */
-    private class WallpaperIntentReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //getWindow().setBackgroundDrawable(new ClippedDrawable(getWallpaper()));
-        }
-    }    
 }

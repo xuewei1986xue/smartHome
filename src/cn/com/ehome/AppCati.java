@@ -66,6 +66,7 @@ public class AppCati extends FragmentActivity implements OnItemClickListener,
 		gridview.setEmptyView(findViewById(R.id.tips));
 		gridview.requestFocus();
 		
+		// TODO introduce new ad view
 		final AnimationDrawable ad = (AnimationDrawable)getResources().getDrawable(R.drawable.test_ani_list);
 		
 		findViewById(R.id.title).setBackgroundDrawable(ad);
@@ -106,17 +107,13 @@ public class AppCati extends FragmentActivity implements OnItemClickListener,
 		}
 
 	}
-	
-	
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		gridview.requestFocus();
 	}
-
-
-
+	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int position,
 			long id) {
@@ -175,7 +172,7 @@ public class AppCati extends FragmentActivity implements OnItemClickListener,
 				}
 				String tips = mWebsitelist.get(position).descrip;
 				if( tips == null || tips.isEmpty()){
-					tips = String.format("缺省说明：这里显示图文说明,可以编辑你对网址 %s 的说明",
+					tips = String.format("hello %s ",
 							mWebsitelist.get(position).name);
 				}
 				mDescription.setText(tips);
@@ -187,7 +184,7 @@ public class AppCati extends FragmentActivity implements OnItemClickListener,
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		mDescription.setText("这里显示图文说明,可以编辑你对apk的说明");
+		mDescription.setText("nothing��apk");
 
 	}
 

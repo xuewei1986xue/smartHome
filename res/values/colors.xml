@@ -37,6 +37,10 @@
     
     <color name="indicator_r">#55FF1111</color>
     <color name="indicator_blue">#551111FF</color>
-    <color name="gridview_item_text_color">#ff000000</color>
+    <color name="gridview_item_text_color">#ffffffff</color>
+    <!-- 欢迎词的字体颜色 -->
+    <color name="welcome_text_color">#ffffffff</color>
+    <!-- 欢迎界面按钮的文字颜色 -->
+    <color name="welcome_button_text_color">#ffffffff</color>
     
 </resources>

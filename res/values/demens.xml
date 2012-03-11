@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="expand_text_left">36dp</dimen>
+    <dimen name="expand_text_left">36dp</dimen>    
+        
+    <!-- 设置logo的长宽 -->
+    <dimen name="logo_width">200dp</dimen>
+    <dimen name="logo_height">180dp</dimen>
+    
+    <!-- 欢迎文字 -->
+    <dimen name="welcome_font_size">25sp</dimen>
+    
+    <!-- 欢迎界面的修改语言的旁白-->
     <dimen name="lang_padding">8dp</dimen>
+    
+    <!-- 欢迎界面的按钮的大小设置 -->
     <dimen name="menu_padding">0dp</dimen>
     <dimen name="menu_width">100dp</dimen>
     <dimen name="menu_height">50dp</dimen>
-    <dimen name="logo_width">250dp</dimen>
-    <dimen name="logo_height">220dp</dimen>
+    
+    
     <dimen name="gridview_width">600dp</dimen>
     <dimen name="lang_margin_r">40dp</dimen>
     <dimen name="lang_margin_t">30dp</dimen>
     <dimen name="margin_global">5dp</dimen>
     
-        
+    <!-- 设置广告条的高度-->    
     <dimen name="ad_height">50dp</dimen>
 
 </resources>

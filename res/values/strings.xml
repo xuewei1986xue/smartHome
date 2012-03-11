@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+<!-- 以下文字是需要定制修改的 -->
+
     <string name="app_name">智能E房</string>
+	<string name="welcome">欢迎来到智能E房系统,欢迎欢迎，热烈欢迎</string>
+	
+<!-- 以上文字需要修改的 -->
     
     <string name="language_title">标题</string>
 	<string name="language_discription">描述</string>
@@ -88,6 +94,7 @@
 	<string name="find_card_umount">发现存储设备拔出</string>
 	<string name="loading">Loading</string>
 	<string name="menu_wallpaper">设置墙纸</string>
+	<string name="set_wallpaper_succuss">设置墙纸成功</string>
 	
 	<string name="wallpaper_instructions">选择图片来设置背景</string>
 	<string name="sava_file_suc">保存成文件成功</string>
