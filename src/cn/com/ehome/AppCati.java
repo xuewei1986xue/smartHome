@@ -66,7 +66,7 @@ public class AppCati extends FragmentActivity implements OnItemClickListener,
 		gridview.setEmptyView(findViewById(R.id.tips));
 		gridview.requestFocus();
 		
-		// TODO introduce new ad view
+		// TODO x
 		final AnimationDrawable ad = (AnimationDrawable)getResources().getDrawable(R.drawable.test_ani_list);
 		
 		findViewById(R.id.title).setBackgroundDrawable(ad);

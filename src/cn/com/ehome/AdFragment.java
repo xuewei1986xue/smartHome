@@ -55,9 +55,12 @@ public class AdFragment extends Fragment implements ViewFactory, OnClickListener
 
 	@Override
 	public void onClick(View view) {
-		Intent intent = new Intent(Intent.ACTION_VIEW);
+		/*Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse("http://www.baidu.com"));
-		getActivity().startActivity(intent);
+		getActivity().startActivity(intent);*/
+		Intent intent = new Intent(this.getActivity(),SmitBrowser.class);	
+		intent.putExtra(SmitBrowser.OPEN_URL, "http://www.baidu.com");
+		startActivity(intent);
 		
 	}
 	public void setIntervalTime(long time){
