@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:orientation="vertical">
+	<TableLayout android:id="@+id/tableLayout1"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_gravity="center">
+		<TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content"
+			android:layout_height="50dp" android:background="@color/widget_bg"
+			android:layout_marginBottom="1dp">
+			<TextView android:layout_width="wrap_content" android:text="@string/input_room_num"
+				android:id="@+id/textView2" android:layout_height="wrap_content"></TextView>
+			<EditText android:id="@+id/editText_roomNum"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:width="150dp"
+				android:singleLine="true">
+				<requestFocus></requestFocus>
+			</EditText>
+			<Button android:text="@string/register_room" android:id="@+id/btn_reg"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"
+			android:layout_height="50dp" android:background="@color/widget_bg"
+			android:layout_marginBottom="1dp">
+			<TextView android:layout_width="wrap_content" android:text="@string/current_room_number"
+				android:id="@+id/cur_status" android:layout_height="wrap_content"
+				android:layout_span="2"></TextView>
+			<Button android:text="@string/unregister_room"
+				android:layout_width="wrap_content" android:id="@+id/btn_unreg"
+				android:layout_height="wrap_content"></Button>
+		</TableRow>
+	</TableLayout>
+	<!--<TextView android:text="@string/logo.png" android:id="@+id/custom_logo"
+		android:layout_width="fill_parent" android:layout_height="50dp"
+		android:gravity="center_vertical"
+		android:background="@color/widget_bg"
+		android:layout_marginBottom="1dp"
+		android:singleLine="true"
+		android:ellipsize="middle"></TextView>
+	<TextView android:text="@string/funny.mp3" android:id="@+id/custom_bg_music"
+		android:layout_width="fill_parent" android:layout_height="50dp"
+		android:gravity="center_vertical"
+		android:background="@color/widget_bg"
+		android:layout_marginBottom="1dp"
+		android:singleLine="true"
+		android:ellipsize="middle"></TextView>
+	<TextView android:text="@string/birthday.mp3" android:id="@+id/custom_birthday_music"
+		android:layout_width="fill_parent" android:layout_height="50dp"
+		android:gravity="center_vertical"
+		android:background="@color/widget_bg"
+		android:singleLine="true"
+		android:ellipsize="middle"></TextView>
+--></LinearLayout>

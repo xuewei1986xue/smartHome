@@ -2,11 +2,34 @@ package cn.com.ehome;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import android.app.Activity;
 import android.app.ActivityManagerNative;
@@ -15,10 +38,7 @@ import android.app.Dialog;
 import android.app.IActivityManager;
 import android.app.WallpaperManager;
 import android.app.backup.BackupManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
@@ -26,6 +46,7 @@ import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.text.method.PasswordTransformationMethod;
@@ -47,6 +68,7 @@ import android.widget.TextView.OnEditorActionListener;
 import cn.com.ehome.database.EHotelProvider;
 import cn.com.ehome.systemmanage.ManageActivity;
 import cn.com.ehome.until.GobalFinalData;
+import cn.com.ehome.until.MyException;
 import cn.com.ehome.until.XmlPreference;
 
 
@@ -62,6 +84,7 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	private Button mbtn6;
 	private Button mbtnlogo;
 	private Button mbtnChgLang;
+	private TextView mTvWelcome;
 	
 	public final static int DIALOG_POPLANGUAGESEL = 5;
 	public final static int DIALOG_LOGIN = 6;
@@ -72,6 +95,17 @@ public class EHomeActivity extends Activity implements OnClickListener {
 	private String HOTEL_HOME = "file:///android_asset/test/index.html";
 	private String HOTEL_INFO = "file:///android_asset/test/film/index.html";
 	EditText etPassword;
+	
+	float myscaler = 0;
+	private String mRoomNum;
+	private Boolean mIsBirthday = false;
+	private String mGetwelcomeEN;
+	private String mGetwelcomeCN;
+	private Boolean bRegSuccess = false;
+	private Boolean bHttpReqStart = false;
+
+	private static String GET_CLIENT_URL = "http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=roominfo";
+
 	
 	private static String TAG = "home";
 	
@@ -100,12 +134,37 @@ public class EHomeActivity extends Activity implements OnClickListener {
         mbtn6 =  (Button)findViewById(R.id.button6);
         mbtn6.setOnClickListener(this);
         
+        mTvWelcome = (TextView)findViewById(R.id.welcome);
+        
         initData();
         setDefaultWallpaper();
         
     }
+    
+    
 
-    private void initData(){
+    @Override
+	protected void onResume() {		
+		super.onResume();
+		XmlPreference xmlPreference;
+		if(GobalFinalData.ISDEBUG){
+			xmlPreference = new XmlPreference(true,this,GobalFinalData.INIT_FILE);
+		}else{
+			xmlPreference = new XmlPreference(GobalFinalData.CONFIG_FILE);
+		}
+		String value = xmlPreference.getKeyValue("room_inf");
+		if (value != null && value.isEmpty() == false) {
+			GET_CLIENT_URL = value;
+		}
+		if(!bHttpReqStart && !bRegSuccess){
+			bHttpReqStart = true;
+			new HttpAsycPost().execute(mRoomNum);
+		}
+	}
+
+
+
+	private void initData(){
     	/*File file = new File(GobalFinalData.INIT_FILE);
 		if (file.exists() == false) {
 			return;
@@ -496,4 +555,158 @@ public class EHomeActivity extends Activity implements OnClickListener {
     		}
     	}        
     }
+    
+    
+    private void httpGetData() throws MyException {
+		HttpParams httpParameters = new BasicHttpParams();
+		// Set the timeout in milliseconds until a connection is established.
+		int timeoutConnection = 3000;
+		HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+		
+		int timeoutSocket = 5000;
+		HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+		
+		DefaultHttpClient client = new DefaultHttpClient(httpParameters);
+		HttpPost post = new HttpPost(GET_CLIENT_URL);
+		List nvps = new ArrayList();
+		nvps.add(new BasicNameValuePair("roomNum", mRoomNum));
+
+		UrlEncodedFormEntity p_entity = null;
+		try {
+			p_entity = new UrlEncodedFormEntity(nvps, HTTP.UTF_8);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		post.setEntity(p_entity);
+		HttpResponse response = null;
+		try {
+			response = client.execute(post);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_NETWORK,
+					"ClientProtocolException");
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_NETWORK, "IOException");
+		}
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db;
+		try {
+			db = dbf.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_XML, "error");
+		}
+		InputStream inputStream = null;
+		try {
+			inputStream = response.getEntity().getContent();
+			//inputStream = getResources().getAssets().open("CustomerInfo.xml");
+		} catch (IllegalStateException e) {
+
+			e.printStackTrace();
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_NETWORK,
+					"IllegalStateException");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_NETWORK,
+					"IllegalStateException");
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_NETWORK,
+					"IllegalStateException");
+		}
+
+		Document doc = null;
+		try {
+			doc = db.parse(inputStream);
+		} catch (SAXException e) {
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_NETWORK, "SAXException");
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new MyException(MyException.TYPE_BAD_NETWORK, "IOException");
+		}
+		doc.getDocumentElement().normalize();
+
+		NodeList nodeList = doc.getElementsByTagName("birthday");
+		if (nodeList == null || nodeList.getLength() == 0) {
+			throw new MyException(MyException.TYPE_BAD_XML, "error");
+		}
+		Node node = nodeList.item(0);
+		NamedNodeMap attrs = node.getAttributes();
+		Node nodeData = attrs.getNamedItem("data");
+		if (nodeData == null) {
+			throw new MyException(MyException.TYPE_BAD_XML, "error");
+		}
+		String statusValue = nodeData.getNodeValue();
+		if ("true".equalsIgnoreCase(statusValue)) {
+			mIsBirthday = true;
+		} else {
+			mIsBirthday = false;
+		}
+
+		nodeList = doc.getElementsByTagName("welcomeEN");
+		if (nodeList == null || nodeList.getLength() == 0) {
+			throw new MyException(MyException.TYPE_BAD_XML, "error");
+		}
+		node = nodeList.item(0);
+		attrs = node.getAttributes();
+		nodeData = attrs.getNamedItem("data");
+		if (nodeData == null) {
+			throw new MyException(MyException.TYPE_BAD_XML, "error");
+		}
+		mGetwelcomeEN = nodeData.getNodeValue();
+
+		nodeList = doc.getElementsByTagName("welcomeCN");
+		if (nodeList == null || nodeList.getLength() == 0) {
+			throw new MyException(MyException.TYPE_BAD_XML, "error");
+		}
+		node = nodeList.item(0);
+		attrs = node.getAttributes();
+		nodeData = attrs.getNamedItem("data");
+		if (nodeData == null) {
+			throw new MyException(MyException.TYPE_BAD_XML, "error");
+		}
+		mGetwelcomeCN = nodeData.getNodeValue();
+	}
+
+	class HttpAsycPost extends AsyncTask<String, Integer, MyException> {
+
+		@Override
+		protected MyException doInBackground(String... params) {
+			Log.d("chen", "-----------start request client data");
+			MyException exp = null;
+			try {
+				httpGetData();
+				bRegSuccess = true;
+			} catch (MyException e) {
+				exp = e;
+				e.printStackTrace();
+			}
+			//bReturnRes = true;
+			return exp;
+		}
+
+		@Override
+		protected void onPostExecute(MyException exception) {
+
+			if (exception == null) {
+				if (mIsBirthday) {
+					/*EHomeActivity.this
+							.playStartMusic(SettingRoomNum.CUSTOM_BIRTHDAY_MUSIC);*/
+				}
+				if (mGetwelcomeEN != null && mGetwelcomeEN.isEmpty() == false
+						&& mGetwelcomeCN != null
+						&& mGetwelcomeCN.isEmpty() == false) {
+					mTvWelcome.setText(mGetwelcomeCN);
+					//mTVWelcomeEN.setText(mGetwelcomeEN);
+				}
+				return;
+			}	
+			bHttpReqStart = false;
+		}
+	}
 }

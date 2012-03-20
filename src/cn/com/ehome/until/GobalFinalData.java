@@ -42,6 +42,8 @@ public class GobalFinalData {
 	public static final String CONFIG_FILE = "/mnt/sdcard/tflash/config.xml";
 	public static final String INIT_FILE = "ehome_init.xml";
 	
+	public static final Boolean ISDEBUG = true; // 当前是不是调试状态
+	
 	public static final String FIRST_TIME_FLAG = "FIRST_TIME_FLAG";
 	public static final String LANG = "lang";
 

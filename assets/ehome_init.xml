@@ -3,4 +3,6 @@
 <root>
 <!--hotel>file:///android_asset/3.0.4/examples/02-jquery.html</hotel-->
 <info>file:///android_asset/3.0.4/examples/02-jquery.html</info>
+<hotel_inf>http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=hotelinfo</hotel_inf>
+<room_inf>http://192.168.0.195:8080/pushcmsserver/hotel.do?opt=roominfo</room_inf>
 </root>

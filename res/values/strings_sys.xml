@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="input_room_num">请输入本设备所在房间号：</string>
+	<string name="no_room_num">还沒有注册房间号，注册后才可以正常使用！</string>
+	<string name="cur_room_num_is">
+	<![CDATA[当前的房间号已经设置为：<font size="50" color="red"><b>%1$s</b></font>
+	]]>
+	</string>
+	<string name="unregister_room">注销当前房间号</string>
+	<string name="register_room">注册房间号</string>
+	<string name="set_room_title">同步服务器资源</string>
+	<string name="setting_room_suc">设置房间号成功！</string>
+	<string name="setting_room_fail">设置房间号失败</string>
+	<string name="setting_room_suc_ureg">销注房间号成功！</string>
+	<string name="setting_room_fail_ureg">销注房间号失败</string>
+	<string name="setting_room_repeat">房间号设置重复</string>
+	<string name="setting_room_net_problem">连接服务失败，请检查网络、服务器工作是否正常</string>
+	<string name="setting_room_parse_xml_fail">解析xml文件失败</string>
+	<string name="setting_room_return_fail">服务器返回状态是失败</string>
+	<string name="setting_room_download_fail">下载资源文件失败</string>
+	<string name="error_code">错误代码是：</string>
+	<string name="input_cannt_null">输入不能为空</string>
+	<string name="have_set_this_roomnum">当前已经是这个房间号，不需要再设置</string>
+	
+	<string name="current_room_number">current room number is 101</string>
+	<string name="logo.png">酒店标志图片：没有获取</string>
+	<string name="funny.mp3">背景音乐为：没有获取</string>
+	<string name="birthday.mp3">生日音乐为：没有获取</string>
+    
+</resources>

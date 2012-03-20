@@ -49,7 +49,7 @@ public class ManageActivity extends Activity implements OnItemClickListener {
 
 	private final int systemfun[] = { 
 			R.string.sys_fun_setting,R.string.sys_fun_setting_dis,
-			/*R.string.sys_fun_set_room_num,R.string.sys_fun_set_room_num_dis,*/
+			R.string.sys_fun_set_room_num,R.string.sys_fun_set_room_num_dis,
 			R.string.sys_fun_sort,R.string.sys_fun_sort_dis, 
 			R.string.sys_fun_copy_sd,R.string.sys_fun_copy_sd_dis,			
 			R.string.sys_fun_batinstall,R.string.sys_fun_batinstall_dis,
@@ -59,27 +59,26 @@ public class ManageActivity extends Activity implements OnItemClickListener {
 			R.string.sys_fun_set_wallpaper,R.string.sys_fun_set_wallpaper_dis,
 			/*R.string.sys_fun_custom,R.string.sys_fun_custom_dis*/};
 	
-/*	private final static int SYSTEM_SETTING = 0; // ϵͳ����
-	private final static int APP_SET_ROOM_NUM = 1; // ���÷����
-	private final static int APP_SORT = 2; // Ӧ�÷���	
-	private final static int APP_DATABASE_COPY_SD = 3; // ��ݿ�Ͱ�װӦ�ø��Ƶ�sd��		
-	private final static int APP_BATCH = 4; // ������װ
-	private final static int APP_DATABASE_COPY_MACHINE = 5; // ��ݿ�Ͱ�װӦ�ø��ƻػ���
+/*	private final static int SYSTEM_SETTING = 0; // 系统锟斤拷锟斤拷
+	private final static int APP_SET_ROOM_NUM = 1; // 锟斤拷锟矫凤拷锟斤拷锟?
+	private final static int APP_SORT = 2; // 应锟矫凤拷锟斤拷	
+	private final static int APP_DATABASE_COPY_SD = 3; // 锟斤拷菘锟酵帮拷装应锟矫革拷锟狡碉拷sd锟斤拷		
+	private final static int APP_BATCH = 4; // 锟斤拷锟斤拷锟斤拷装
+	private final static int APP_DATABASE_COPY_MACHINE = 5; // 锟斤拷菘锟酵帮拷装应锟矫革拷锟狡回伙拷锟斤拷
 	private final static int APP_UNINSTALL_BATCH = 6;
 	private final static int APP_START_HOME = 7;
 	private final static int APP_PREFERENCE = 8;*/
 	
 	private final static int SYSTEM_SETTING = 0; 
-	private final static int APP_SORT = 1; // Ӧ�÷���	
-	private final static int APP_DATABASE_COPY_SD = 2; // ��ݿ�Ͱ�װӦ�ø��Ƶ�sd��		
-	private final static int APP_BATCH = 3; 
-	private final static int APP_DATABASE_COPY_MACHINE = 4;
-	private final static int APP_UNINSTALL_BATCH = 5;
-	private final static int APP_START_HOME = 6;
-	private final static int APP_SET_WALLPAPER = 7;
+	private final static int APP_SET_ROOM_NUM = 1; 
+	private final static int APP_SORT = 2; 
+	private final static int APP_DATABASE_COPY_SD = 3; 
+	private final static int APP_BATCH = 4; 
+	private final static int APP_DATABASE_COPY_MACHINE = 5;
+	private final static int APP_UNINSTALL_BATCH = 6;
+	private final static int APP_START_HOME = 7;
+	private final static int APP_SET_WALLPAPER = 8;
 	private final static int APP_PREFERENCE = 80;
-	// ϵͳ����
-	private final static int APP_SET_ROOM_NUM = 10; // ���÷����
 	
 	
 	public static final String SDCARD = Environment
@@ -194,7 +193,10 @@ public class ManageActivity extends Activity implements OnItemClickListener {
 				if (intent != null) {
 					startActivity(intent);
 				}
-			} else if (position == APP_SORT) {
+			} else if(APP_SET_ROOM_NUM == position){
+				Intent mIntent = new Intent(this, SettingRoomNum.class);
+				startActivity(mIntent);
+			}else if (position == APP_SORT) {
 				Intent mIntent = new Intent(this, SetSortActivity.class);
 				startActivity(mIntent);
 			} else if (position == APP_BATCH) {

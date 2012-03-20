@@ -138,6 +138,7 @@
 			</intent-filter>
 			
 		</activity>
+        <activity android:theme="@android:style/Theme.Dialog" android:name=".systemmanage.SettingRoomNum"></activity>
        
     </application>
 
